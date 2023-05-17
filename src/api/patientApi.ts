@@ -10,7 +10,7 @@ const patientApi = {
         const url = "/update-patient";
         return axiosClient.put(url, data);
     },
-    changeDefault: (data: any)=>{
+    changeDefault: (data: any)=>{        
         const url = "/change-patient-detail";
         return axiosClient.put(url, data);
     },

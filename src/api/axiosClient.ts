@@ -1,61 +1,50 @@
-// import axios from 'axios';
-// import queryString from 'query-string';
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import queryString from 'query-string';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// interface customHeadersType{
-//     Authorization: string
-// }
+interface customHeadersType{
+    Authorization: string
+}
 
-// const axiosClient = axios.create({
-//     baseURL: 'http://192.168.1.105:4000/api',
-//     headers: {
-//         'content-type': 'application/json',
-//     },
-//     paramsSerializer: params => queryString.stringify(params),
-//     transformRequest: formData => formData, // this line
-// });
-// axiosClient.interceptors.request.use(async (config) => {
-//     const customHeaders:customHeadersType = {Authorization: ''};
-//     let accessToken;
-//     const accessLandlordToken = await AsyncStorage.getItem('accessLandlordToken');
-//     const accessTenantToken = await AsyncStorage.getItem('accessTenantToken');
-//     if(accessLandlordToken){
-//         console.log("accessLandlordToken: ", accessLandlordToken);
-//         accessToken = accessLandlordToken
-//     }
-//     if(accessTenantToken){
-//         console.log("accessTenantToken: ", accessTenantToken);
-//         accessToken = accessTenantToken
-//     }
+const axiosClient = axios.create({
+    baseURL: 'http://192.168.2.102:4000/api',
+    headers: {
+        'content-type': 'application/json',
+    },
+});
+axiosClient.interceptors.request.use(async (config) => {
+    console.log("config: ", config);
+    const customHeaders:customHeadersType = {Authorization: ''};    
+    const accessToken = await AsyncStorage.getItem('accessToken');  
 
-//     if (accessToken) {
-//         console.log("accessToken: ", accessToken);
-//         customHeaders.Authorization = accessToken;
-//     }
+    if (accessToken) {
+        console.log("accessToken: ", accessToken);
+        customHeaders.Authorization = accessToken;
+    }
 
-//     return {
-//         ...config,
-//         headers: {
-//             ...customHeaders,  // auto attach token
-//             ...config.headers, // but you can override for some requests
-//         }
-//     };
-// });
-// axiosClient.interceptors.response.use((response) => {
-//     if (response && response.data) {
-//         return response.data;
-//     }
-//     return response;
-// }, (error) => {
-//     // Handle errors
-//     throw error;
-// });
-// export default axiosClient;
+    return {
+        ...config,
+        headers: {
+            ...customHeaders,  // auto attach token
+            ...config.headers, // but you can override for some requests
+        }
+    };
+});
+axiosClient.interceptors.response.use((response) => {
+    if (response && response.data) {
+        return response.data;
+    }
+    return response;
+}, (error) => {
+    // Handle errors
+    throw error;
+});
+export default axiosClient;
 
 
 // import axios from 'axios';
 // // import queryString from 'query-string';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 // const axiosClient = axios.create({
 //     baseURL: 'http://192.168.42.194:4000/api',
 //     headers: {
@@ -87,26 +76,26 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 //     throw error;
 // });
 
-const axiosClient = {
-    get: (url: string) => {
-        fetch('http://192.168.42.194:4000/api/' + url, {
-            method: 'GET',
-            headers: {
-                'content-type': 'application/json',
-                // 'Authorization': accessToken ? accessToken : ''
-            },
-        })
-            .then(response => {
-                console.log("response: ", response.json());
-                return response.json();
-            })
-    },
-    post: async (url: string, data: any) => {
+// const axiosClient = {
+//     get: (url: string) => {
+//         fetch('http://192.168.42.194:4000/api/' + url, {
+//             method: 'GET',
+//             headers: {
+//                 'content-type': 'application/json',
+//                 // 'Authorization': accessToken ? accessToken : ''
+//             },
+//         })
+//             .then(response => {
+//                 console.log("response: ", response.json());
+//                 return response.json();
+//             })
+//     },
+//     post: async (url: string, data: any) => {
 
-    },
-    put: async (url: string, data: any) => {
+//     },
+//     put: async (url: string, data: any) => {
 
-    }
-}
+//     }
+// }
 
-export default axiosClient;
+// export default axiosClient;

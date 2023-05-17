@@ -20,7 +20,7 @@ const Account = ({ navigation }) => {
         </TouchableOpacity>
         <View>
           <Text style={{ fontWeight: "bold", fontSize: 18, color: "white" }}>
-            {profile.first_name} {profile.last_name}
+            {profile?.first_name} {profile?.last_name}
           </Text>
         </View>
         <View />

@@ -1,11 +1,16 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const RegisterScreen = () => {
+const RegisterScreen = (props) => {
+  const { navigation } = props;
   return (
-    <View>
-      <Text>RegisterScreen</Text>
-    </View>
+    <TouchableOpacity onPress={()=>{
+      navigation.goBack();
+    }}>
+      <View>
+        <Text>back</Text>
+      </View>
+    </TouchableOpacity>
   )
 }
 

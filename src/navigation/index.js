@@ -24,6 +24,7 @@ import Services from '../screens/authentication/Services';
 import Calendar from '../screens/authentication/Calendar';
 import Time from '../screens/authentication/Time';
 import { useSelector } from 'react-redux';
+import ValidateOtpScreen from '../screens/unauthenticated/ValidateOtpScreen';
 
 const Stack = createNativeStackNavigator();
 const options = {
@@ -99,7 +100,8 @@ const AppNavigation = () => {
             <Stack.Screen name="Services" component={Services} options={options} />
             <Stack.Screen name="Calendar" component={Calendar} options={options} />
             <Stack.Screen name="Time" component={Time} options={options} />
-
+            <Stack.Screen name="ValidateOtpScreen" component={ValidateOtpScreen} options={options} />
+            
         </Stack.Navigator>
     )
 }

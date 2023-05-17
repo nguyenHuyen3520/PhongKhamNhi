@@ -5,7 +5,7 @@ import fetchQuery from "./fetchApi";
 const notificationApi = {
     readAll: (data:any) => {        
         const url = "/read-all-notification";
-        return fetchQuery(url,'POST', data);
+        return axiosClient.post(url,data);
     },
     
 }

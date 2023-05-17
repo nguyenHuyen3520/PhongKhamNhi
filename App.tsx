@@ -13,7 +13,9 @@ const App = () => {
       <NavigationContainer>
         <AppNavigation />
         <LoadingComponent />
-        <Toast config={toastConfig} />
+        <Toast 
+        // config={toastConfig} 
+        />
       </NavigationContainer>
     </Provider>
   )

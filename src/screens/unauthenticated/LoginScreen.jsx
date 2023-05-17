@@ -35,28 +35,33 @@ const LoginScreen = (props) => {
         const response = await loginApi.login(data);
         // const response = await fetchQuery("/login?phone="+data.phone+"&password="+data.password)
         console.log("response: ", response);
-        if (response.success) {            
+        if (response.success) {
             await AsyncStorage.setItem("accessToken", response.accessToken);
             let bookings = [];
             dispatch(saveToken(response.accessToken));
             dispatch(saveProfile(response.info));
-            dispatch(savePatients(response.info.Patients));
-            response.info.Patients.map((item)=>{
-                if(item?.Bookings?.length > 0){
-                    bookings.push(...item.Bookings);
-                }
-              })
-            dispatch(savePatientDetail(response.info.Patients.filter(item => item.is_default == 1)));            
-            dispatch(saveNotifications(response.info.Notifications));
-            dispatch(saveServices(response.info.services));
-            dispatch(saveDoctors(response.info.doctors));
-            dispatch(saveBookings(bookings));
-            dispatch(saveBills(response.info.Bills));
+            const responseInfo = await loginApi.getInfo();
+            if (responseInfo) {
+                dispatch(savePatients(responseInfo?.info?.Patients));
+                responseInfo?.info?.Patients.map((item) => {
+                    if (item?.Bookings?.length > 0) {
+                        bookings.push(...item.Bookings);
+                    }
+                })
+                dispatch(savePatientDetail(responseInfo?.info?.Patients.filter(item => item.is_default == 1)));
+                dispatch(saveNotifications(responseInfo?.info?.Notifications));
+                dispatch(saveServices(responseInfo?.services));
+                dispatch(saveDoctors(responseInfo?.doctors));
+                dispatch(saveBookings(bookings));
+                dispatch(saveBills(responseInfo?.info?.Bills));
+            }
+
             navigation.navigate("BottomTab");
         }
     };
     return (
-        <ImageBackground source={require('../../../media/login.jpg')} resizeMode="cover" style={{flex: 1,
+        <ImageBackground source={require('../../../media/login.jpg')} resizeMode="cover" style={{
+            flex: 1,
             justifyContent: 'center',
         }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', }}>
@@ -122,7 +127,7 @@ const LoginScreen = (props) => {
                             password
                         })
                     }}>
-                        <Text style={{ color: 'white', textAlign: 'center', fontWeight: "bold"}}>
+                        <Text style={{ color: 'white', textAlign: 'center', fontWeight: "bold" }}>
                             Đăng Nhập
                         </Text>
                     </TouchableOpacity>

@@ -76,11 +76,14 @@ export const appSlice = createSlice({
       state.selectedService = null;
       state.selectedCalendar = null;
       state.selectedTime = null;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { saveBookings, resetBooking, saveSelectedTime,saveSelectedCalendar, saveSelectedService, saveSelectedDoctor, saveDoctors,saveServices,  savePatientDetail, saveToken, changeLoading, removeToken, saveProfile,savePatients, saveNotifications, saveBills  } = appSlice.actions
+export const { setLoading, saveBookings, resetBooking, saveSelectedTime,saveSelectedCalendar, saveSelectedService, saveSelectedDoctor, saveDoctors,saveServices,  savePatientDetail, saveToken, changeLoading, removeToken, saveProfile,savePatients, saveNotifications, saveBills  } = appSlice.actions
 
 export default appSlice.reducer
