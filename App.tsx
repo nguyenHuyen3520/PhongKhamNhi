@@ -1,28 +1,22 @@
-// In App.js in a new project
-
-import * as React from 'react';
-import { View, Text } from 'react-native';
+import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AppNavigation from './src/navigation';
+import { store } from './src/store'
+import { Provider } from 'react-redux'
+import LoadingComponent from './src/components/Loading';
+import toastConfig from './src/components/Toast'
+import Toast from 'react-native-toast-message';
 
-function HomeScreen() {
+const App = () => {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-    </View>
-  );
+    <Provider store={store}>
+      <NavigationContainer>
+        <AppNavigation />
+        <LoadingComponent />
+        <Toast config={toastConfig} />
+      </NavigationContainer>
+    </Provider>
+  )
 }
 
-const Stack = createNativeStackNavigator();
-
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-export default App;
+export default App
