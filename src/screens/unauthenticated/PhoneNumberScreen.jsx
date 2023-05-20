@@ -18,6 +18,7 @@ import loginApi from "../../api/loginApi";
 import Toast from 'react-native-toast-message';
 import { useDispatch } from "react-redux";
 import { setLoading } from "../../store/appSlice";
+import theme from "../../configApp";
 
 const PhoneNumber = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -27,14 +28,18 @@ const PhoneNumber = ({ navigation }) => {
   const [code, setCode] = useState("");
   //  const phoneInput = useRef<PhoneInput>(null);
 
-  const handleValidate = async ()=>{
+  const handleValidate = async () => {
     dispatch(setLoading(true));
-    const response = await loginApi.sendOTP({ code, request_id :requestId });     
+    console.log("data validate: ", { code, request_id: requestId });
+    const response = await loginApi.validateOTP({ code, request_id: requestId });
     if (response.success) {
       Toast.show({
         type: 'success',
         text1: "Xác thực mã thành công",
-      });      
+      });
+      setModalVisible(false);
+      dispatch(setLoading(false));  
+      navigation.navigate("Register", { phone: formattedValue });
     } else {
       Toast.show({
         type: 'error',
@@ -42,8 +47,6 @@ const PhoneNumber = ({ navigation }) => {
       });
     }
     dispatch(setLoading(false));
-    setModalVisible(false);
-    navigation.navigate("RegisterScreen");
   }
 
   const hanldeSendOTP = async () => {
@@ -54,6 +57,7 @@ const PhoneNumber = ({ navigation }) => {
         type: 'success',
         text1: "Gửi mã xác thực thành công",
       });
+      setModalVisible(true);
       setRequestId(response.request_id);
     } else {
       Toast.show({
@@ -76,7 +80,6 @@ const PhoneNumber = ({ navigation }) => {
           transparent={true}
           visible={modalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
             setModalVisible(!modalVisible);
           }}>
           <View style={[styles.centeredView, { position: 'relative', flex: 1 }]}>
@@ -87,7 +90,7 @@ const PhoneNumber = ({ navigation }) => {
                   Xác thực OTP
                 </Text>
                 <Text style={{ textAlign: 'center', marginVertical: 5 }}>
-                  Vui lòng nhập mã OTP được gửi về SDT {formattedValue} để đăng ký tài khoản
+                  Vui lòng nhập mã OTP sẽ được gửi về SDT {formattedValue} trong vài phút để đăng ký tài khoản.
                 </Text>
                 <View style={{ marginVertical: 10 }}>
                   <TextInput
@@ -125,7 +128,7 @@ const PhoneNumber = ({ navigation }) => {
                     }}
                     disabled={code.length == 0}
                   >
-                    <Text style={{color: code.length == 0 ? '#e0e0e0' : "black"}}>
+                    <Text style={{ color: code.length == 0 ? '#e0e0e0' : "black" }}>
                       Xác nhận
                     </Text>
                   </TouchableOpacity>
@@ -137,12 +140,18 @@ const PhoneNumber = ({ navigation }) => {
         </Modal>
         <View style={{ flex: 1 }}>
           <SafeAreaView style={styles.wrapper}>
-            <View style={{ height: 50, justifyContent: 'center', paddingHorizontal: 20 }}>
+            <View style={{ height: 55, backgroundColor: theme.defaultColor, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10 }}>
               <TouchableOpacity onPress={() => {
                 navigation.goBack();
               }}>
-                <Ionicons name="arrow-back" style={{ fontSize: 22, color: "black" }} />
+                <Ionicons name="arrow-back" style={{ color: "white", fontSize: 22 }} />
               </TouchableOpacity>
+              <View>
+                <Text style={{ fontWeight: "bold", fontSize: 18, color: "white" }}>
+                  Đăng ký tài khoản
+                </Text>
+              </View>
+              <View />
             </View>
             <View style={{
               flex: 1,
@@ -150,7 +159,6 @@ const PhoneNumber = ({ navigation }) => {
               alignItems: "center",
               backgroundColor: 'white'
             }}>
-
               <View style={{ ...styles.welcome, fontWeight: "bold" }}>
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>Phòng khám nhi H</Text>
               </View>
@@ -159,7 +167,7 @@ const PhoneNumber = ({ navigation }) => {
               </View>
               <TextInput
                 placeholder={"Nhập số điện thoại"}
-                style={{ textAlign: 'center', borderBottomWidth: 1, width: 300, borderRadius: 5, }}
+                style={{ textAlign: 'center', borderBottomWidth: 1, width: 300 }}
                 keyboardType="numeric"
                 onChangeText={(text) => {
                   setFormattedValue(text);
@@ -167,11 +175,11 @@ const PhoneNumber = ({ navigation }) => {
                 returnKeyLabel="Xong"
               />
               <TouchableOpacity
-                style={[styles.button, { borderRadius: 99, backgroundColor: formattedValue?.length > 0 ? "#7CDB8A" : "#e0e0e0" }]}
+                style={[styles.button, { borderRadius: 99, backgroundColor: formattedValue?.length > 8 ? theme.defaultColor : "#e0e0e0" }]}
                 onPress={() => {
                   hanldeSendOTP()
                 }}
-                disabled={!formattedValue?.length > 0}
+                disabled={!formattedValue?.length > 8}
               >
                 <Text style={[styles.buttonText, { fontWeight: "bold", fontSize: 18, }]}>TIẾP TỤC</Text>
               </TouchableOpacity>

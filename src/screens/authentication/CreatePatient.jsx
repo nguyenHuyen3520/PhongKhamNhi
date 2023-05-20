@@ -52,7 +52,7 @@ const CreatePatient = ({ navigation }) => {
         if(response.success){
             dispatch(savePatients(response.patients));
             Toast.show({
-                type: 'customSuccess',
+                type: 'success',
                 props: {
                     text2: 'Tạo hồ sơ thành công!',
                 },

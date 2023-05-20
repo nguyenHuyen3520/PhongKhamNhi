@@ -25,6 +25,9 @@ import Calendar from '../screens/authentication/Calendar';
 import Time from '../screens/authentication/Time';
 import { useSelector } from 'react-redux';
 import ValidateOtpScreen from '../screens/unauthenticated/ValidateOtpScreen';
+import MyInfoScreen from '../screens/authentication/MyInfo';
+import ChangePassword from '../screens/authentication/ChangePassword';
+import TreatmentHistory from '../screens/authentication/TreatmentHistory';
 
 const Stack = createNativeStackNavigator();
 const options = {
@@ -92,6 +95,7 @@ const AppNavigation = () => {
             <Stack.Screen name="Splash" component={Splash} options={options} />
             <Stack.Screen name="BottomTab" component={BottomTabs} options={options} />            
             <Stack.Screen name="PhoneNumber" component={PhoneNumber} options={options} />
+            <Stack.Screen name="MyInfoScreen" component={MyInfoScreen} options={options} />            
             <Stack.Screen name="Register" component={RegisterScreen} options={options} />
             <Stack.Screen name="CreatePatient" component={CreatePatient} options={options} />
             <Stack.Screen name="PatientDetail" component={PatientDetail} options={options} />
@@ -100,12 +104,15 @@ const AppNavigation = () => {
             <Stack.Screen name="Services" component={Services} options={options} />
             <Stack.Screen name="Calendar" component={Calendar} options={options} />
             <Stack.Screen name="Time" component={Time} options={options} />
+            <Stack.Screen name="ChangePassword" component={ChangePassword} options={options} />
             <Stack.Screen name="ValidateOtpScreen" component={ValidateOtpScreen} options={options} />
-            
+            <Stack.Screen name="TreatmentHistory" component={TreatmentHistory} options={options} />            
         </Stack.Navigator>
     )
 }
 
 export default AppNavigation
+
+
 
 

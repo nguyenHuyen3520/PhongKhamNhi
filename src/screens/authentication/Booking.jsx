@@ -22,7 +22,7 @@ const Booking = ({ navigation }) => {
         dispatch(saveNotifications(response.notifications));
         dispatch(resetBooking());
         Toast.show({
-            type: 'customSuccess',
+            type: 'success',
             props: {
                 text2: 'Đặt lịch khám thành công!',
             },

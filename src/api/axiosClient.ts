@@ -7,7 +7,7 @@ interface customHeadersType{
 }
 
 const axiosClient = axios.create({
-    baseURL: 'http://192.168.2.102:4000/api',
+    baseURL: 'http://192.168.41.194:4000/api',
     headers: {
         'content-type': 'application/json',
     },

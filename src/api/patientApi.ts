@@ -22,7 +22,10 @@ const patientApi = {
         const url = "/create-schedule";
         return axiosClient.post(url, data);
     },
-    
+    getTreatment: (id:any)=>{
+        const url = "/getTreatment?patient_id="+id;
+        return axiosClient.get(url);
+    },
 }
 
 export default patientApi;

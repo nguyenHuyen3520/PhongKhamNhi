@@ -31,8 +31,7 @@ const loginApi = {
         return axiosClient.get(url);
     },
     create: (data: dataSignUp) => {
-        console.log("data in create: ", data);
-        const url = "/dashboard/createUser";
+        const url = "/register";
         return axiosClient.post(url, data);
     },
     sendOTP: (data: dataSendOTP) => {
@@ -41,12 +40,20 @@ const loginApi = {
         return axiosClient.post(url, data);
     },
     validateOTP: (data: any) => {
-        const url = "/validateOTP";        
+        const url = "/validateOTP";
         return axiosClient.post(url, data);
-    },    
-    getInfo: ()=>{
+    },
+    getInfo: () => {
         const url = '/getInfo';
         return axiosClient.get(url);
+    },
+    updateUser: (data: any) => {
+        const url = '/updateUser';
+        return axiosClient.post(url,data);
+    },
+    changePassword: (data: any) => {
+        const url = '/changePassword';
+        return axiosClient.post(url,data);
     }
 }
 
