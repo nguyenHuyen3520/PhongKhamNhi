@@ -54,6 +54,8 @@ const Services = ({ navigation }) => {
                 data={services}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
+
+                style={{padding: 10}}
             />
         </View>
     )
