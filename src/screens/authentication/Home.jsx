@@ -13,10 +13,10 @@ const images = [
     url: require('../../../media/banner.jpg')
   },
   {
-    url: require('../../../media/banner.jpg')
+    url: require('../../../media/banner2.jpg')
   },
   {
-    url: require('../../../media/banner.jpg')
+    url: require('../../../media/banner3.jpg')
   },
 ]
 
@@ -84,6 +84,7 @@ const Home = ({ navigation }) => {
                     containerStyle={styles.imageContainer}
                     style={styles.image}
                     parallaxFactor={0.4}
+
                     {...parallaxProps}
                   />
                 </View>
