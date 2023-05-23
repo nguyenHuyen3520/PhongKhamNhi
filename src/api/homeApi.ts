@@ -4,7 +4,7 @@ import fetchQuery from "./fetchApi";
 
 const homeApi = {
     getDataHome: () => {
-        const url = "/storeViews";
+        const url = "/homeData";
         return axiosClient.get(url)
     },
 }

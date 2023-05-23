@@ -40,19 +40,6 @@ const TreatmentHistory = ({ navigation }) => {
         } else {
             return (
                 <View style={{ flex: 1, backgroundColor: 'white' }}>
-                    <View style={{ height: 55, backgroundColor: theme.defaultColor, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10 }}>
-                        <TouchableOpacity onPress={() => {
-                            navigation.goBack();
-                        }}>
-                            <Ionicons name="arrow-back" style={{ color: "white", fontSize: 22 }} />
-                        </TouchableOpacity>
-                        <View>
-                            <Text style={{ fontWeight: "bold", fontSize: 18, color: "white" }}>
-                                Toa thuốc
-                            </Text>
-                        </View>
-                        <View />
-                    </View>
                     <ScrollView style={{ padding: 10, marginBottom: 10 }}>
                         <View >
                             <View style={{
@@ -104,29 +91,29 @@ const TreatmentHistory = ({ navigation }) => {
                                     </View>
                                 </View>
                             </View>
-                        </View>                        
-                            <View style={{
-                                borderWidth: 1, padding: 10, borderRadius: 8, marginTop: 30
-                                // shadowColor: "#000",
-                                // shadowOffset: {
-                                //     width: 0,
-                                //     height: 1,
-                                // },
-                                // shadowOpacity: 0.20,
-                                // shadowRadius: 1.41,                            
-                                // elevation: 2,
-                            }}>
-                                <Text style={{ fontWeight: "bold", fontSize: 16, textAlign: 'center' }}>
-                                    Thông tin đơn thuốc:
-                                </Text>
-                                <View>
-                                    {
-                                        data?.Supplies && data?.Supplies?.map((item, index)=>(
-                                            <Item key={index} data={item} index={index} />
-                                        ))
-                                    }
-                                </View>
-                            </View>                        
+                        </View>
+                        <View style={{
+                            borderWidth: 1, padding: 10, borderRadius: 8, marginTop: 30
+                            // shadowColor: "#000",
+                            // shadowOffset: {
+                            //     width: 0,
+                            //     height: 1,
+                            // },
+                            // shadowOpacity: 0.20,
+                            // shadowRadius: 1.41,                            
+                            // elevation: 2,
+                        }}>
+                            <Text style={{ fontWeight: "bold", fontSize: 16, textAlign: 'center' }}>
+                                Thông tin đơn thuốc:
+                            </Text>
+                            <View>
+                                {
+                                    data?.Supplies && data?.Supplies?.map((item, index) => (
+                                        <Item key={index} data={item} index={index} />
+                                    ))
+                                }
+                            </View>
+                        </View>
                     </ScrollView>
                 </View>
             )
@@ -135,6 +122,19 @@ const TreatmentHistory = ({ navigation }) => {
     }, [patientDetail, data]);
     return (
         <View style={{ flex: 1 }}>
+            <View style={{ height: 55, backgroundColor: theme.defaultColor, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10 }}>
+                <TouchableOpacity onPress={() => {
+                    navigation.goBack();
+                }}>
+                    <Ionicons name="arrow-back" style={{ color: "white", fontSize: 22 }} />
+                </TouchableOpacity>
+                <View>
+                    <Text style={{ fontWeight: "bold", fontSize: 18, color: "white" }}>
+                        Toa thuốc
+                    </Text>
+                </View>
+                <View />
+            </View>
             {render}
         </View>
     )

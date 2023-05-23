@@ -6,26 +6,37 @@ import { formatCurrency } from "react-native-format-currency";
 import { useDispatch, useSelector } from 'react-redux';
 import { saveSelectedService } from '../../store/appSlice';
 const Services = ({ navigation }) => {
-    const services = useSelector((state) => state.app.services);    
+    const services = useSelector((state) => state.app.services);
     const dispatch = useDispatch();
     const [modalVisible, setModalVisible] = useState(false);
     const [data, setData] = useState(null);
     const renderItem = ({ item }) => {
         const [valueFormattedWithSymbol, valueFormattedWithoutSymbol, symbol] =
-        formatCurrency({ amount: Number(item?.price), code: "VND" });
+            formatCurrency({ amount: Number(item?.price), code: "VND" });
         return (
-            <TouchableOpacity  
-                onPress={()=>{
+            <TouchableOpacity
+                onPress={() => {
                     dispatch(saveSelectedService(item));
                     navigation.navigate("Booking");
                 }}
-                style={{ backgroundColor: "white", padding: 10, borderRadius: 5, marginBottom: 10 }}
+                style={{
+                    backgroundColor: "white", padding: 10, borderRadius: 12, marginBottom: 20, borderWidth: 1,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                        width: 0,
+                        height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+
+                    elevation: 5,
+                }}
             >
                 <View style={{ flexDirection: 'row', marginVertical: 5, justifyContent: "space-between" }}>
-                    <Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 16 }}>
                         {item.service_name.toUpperCase()}
                     </Text>
-                    <Text>
+                    <Text style={{fontWeight: 'bold', fontSize: 16 }}>
                         {valueFormattedWithSymbol}
                     </Text>
                 </View>
@@ -36,7 +47,7 @@ const Services = ({ navigation }) => {
         )
     }
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: "white", }}>
             <View style={{ height: 55, backgroundColor: theme.defaultColor, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10 }}>
                 <TouchableOpacity onPress={() => {
                     navigation.goBack();
@@ -55,7 +66,7 @@ const Services = ({ navigation }) => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
 
-                style={{padding: 10}}
+                style={{ padding: 10 }}
             />
         </View>
     )

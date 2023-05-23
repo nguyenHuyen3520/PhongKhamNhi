@@ -28,6 +28,7 @@ import ValidateOtpScreen from '../screens/unauthenticated/ValidateOtpScreen';
 import MyInfoScreen from '../screens/authentication/MyInfo';
 import ChangePassword from '../screens/authentication/ChangePassword';
 import TreatmentHistory from '../screens/authentication/TreatmentHistory';
+import PostDetail from '../screens/authentication/PostDetail';
 
 const Stack = createNativeStackNavigator();
 const options = {
@@ -77,7 +78,7 @@ function BottomTabs() {
             <Tab.Screen name="Phiếu khám" component={Bills}
                 options={options}
             />
-            <Tab.Screen name="Thông báo" component={Notification} options={ tabBarBadge > 0 ? {
+            <Tab.Screen name="Thông báo" component={Notification} options={tabBarBadge > 0 ? {
                 tabBarBadge: tabBarBadge,
                 headerShown: false,
             } : {
@@ -93,9 +94,9 @@ const AppNavigation = () => {
         <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Login" component={LoginScreen} options={options} />
             <Stack.Screen name="Splash" component={Splash} options={options} />
-            <Stack.Screen name="BottomTab" component={BottomTabs} options={options} />            
+            <Stack.Screen name="BottomTab" component={BottomTabs} options={options} />
             <Stack.Screen name="PhoneNumber" component={PhoneNumber} options={options} />
-            <Stack.Screen name="MyInfoScreen" component={MyInfoScreen} options={options} />            
+            <Stack.Screen name="MyInfoScreen" component={MyInfoScreen} options={options} />
             <Stack.Screen name="Register" component={RegisterScreen} options={options} />
             <Stack.Screen name="CreatePatient" component={CreatePatient} options={options} />
             <Stack.Screen name="PatientDetail" component={PatientDetail} options={options} />
@@ -106,7 +107,9 @@ const AppNavigation = () => {
             <Stack.Screen name="Time" component={Time} options={options} />
             <Stack.Screen name="ChangePassword" component={ChangePassword} options={options} />
             <Stack.Screen name="ValidateOtpScreen" component={ValidateOtpScreen} options={options} />
-            <Stack.Screen name="TreatmentHistory" component={TreatmentHistory} options={options} />            
+            <Stack.Screen name="TreatmentHistory" component={TreatmentHistory} options={options} />
+            <Stack.Screen name="PostDetail" component={PostDetail} options={options} />
+
         </Stack.Navigator>
     )
 }

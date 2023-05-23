@@ -2,7 +2,7 @@ import {  Animated, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 
 const ButtonScale = (props) => {
-    const {onPress = {}, children} = props;
+    const {onPress = {}, children, style={}} = props;
     const animatedButtonScale = new Animated.Value(1);
     const onPressIn = () => {
         Animated.spring(animatedButtonScale, {
@@ -27,6 +27,7 @@ const ButtonScale = (props) => {
             onPress={onPress}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
+            style={style}
         >
             <Animated.View style={[ animatedScaleStyle]}>
                 {

@@ -14,8 +14,12 @@ const listData = [
     value: 2
   },
   {
-    label: 'Đã khám',
+    label: 'Chưa thanh toán',
     value: 3
+  },
+  {
+    label: 'Đã thanh toán',
+    value: 4
   }
 ]
 const Bills = ({ navigation }) => {
@@ -24,17 +28,31 @@ const Bills = ({ navigation }) => {
   const renderItem = ({ item }) => {
     console.log("item: ", item)
     return (
-      <TouchableOpacity onPress={() => {
+      <TouchableOpacity
+        style={{
+          shadowColor: "#000",
+          shadowOffset: {
+            width: 0,
+            height: 2,
+          },
+          shadowOpacity: 0.25,
+          shadowRadius: 3.84,
 
-      }} >
-        <View style={{ borderWidth: 1, padding: 20, borderRadius: 5, marginBottom: 10 }}>
+          elevation: 5,
+        }}
+        onPress={() => {
+
+        }} >
+        <View style={{
+          borderWidth: 1, padding: 20, borderRadius: 15, marginBottom: 20,
+        }}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ fontWeight: 'bold', marginRight: 10 }}>
               Ngày khám:
             </Text>
             <Text>{moment.unix(item.date).format("DD/MM/YYYY")}</Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', marginVertical: 5 }}>
             <Text style={{ fontWeight: 'bold', marginRight: 10 }}>
               Giờ khám:
             </Text>
@@ -42,7 +60,7 @@ const Bills = ({ navigation }) => {
               {item.time}
             </Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', marginVertical: 5 }}>
             <Text style={{ fontWeight: 'bold', marginRight: 10 }}>
               Bác sĩ khám:
             </Text>
@@ -50,7 +68,7 @@ const Bills = ({ navigation }) => {
               {item.User.sku} {item.User.first_name} {item.User.last_name}
             </Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', marginVertical: 5 }}>
             <Text style={{ fontWeight: 'bold', marginRight: 10 }}>
               Dịch vụ khám:
             </Text>
@@ -60,12 +78,12 @@ const Bills = ({ navigation }) => {
               </Text>
             </Text>
           </View>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={{ flexDirection: 'row', marginVertical: 5 }}>
             <Text style={{ fontWeight: 'bold', marginRight: 10 }}>
               Trạng thái:
             </Text>
             <Text>
-              {item.status == 1 ? "Đang chờ xác nhân" : item.status == 2 ? "Chưa khám" : "Đã khám"}
+              {item.status == 1 ? "Đang chờ xác nhân" : item.status == 2 ? "Chưa khám" : item.status == 3 ? "Chưa thanh toán" : "Đã thanh toán"}
             </Text>
           </View>
         </View>
@@ -102,7 +120,7 @@ const Bills = ({ navigation }) => {
                   setStatus(item.value)
                 }}
               >
-                <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: status == item.value ? theme.defaultColor : "#e0e0e0", padding: 10, paddingHorizontal: 20, borderRadius: 10, marginHorizontal: 5 }}>
+                <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: status == item.value ? theme.defaultColor : "#e0e0e0", paddingHorizontal: 15, borderRadius: 90, marginRight: 10 }}>
                   <Text style={{ color: status == item.value ? "white" : "black" }}>
                     {item.label}
                   </Text>

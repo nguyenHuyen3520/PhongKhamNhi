@@ -27,7 +27,7 @@ const Account = ({ navigation }) => {
         <View />
       </View>
       <View style={{ justifyContent: 'space-between' }}>
-        <View style={{ height: 200, backgroundColor: theme.defaultColor, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ height: 200, backgroundColor: theme.defaultColor, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={{ uri: profile?.image }}
             style={{ height: 70, width: 70 }}

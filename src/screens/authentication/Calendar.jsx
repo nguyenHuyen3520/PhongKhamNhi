@@ -12,7 +12,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { saveSelectedCalendar } from '../../store/appSlice';
 const nDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-const Calendar = ({navigation}) => {
+const Calendar = ({ navigation }) => {
     const [activeDate, setActiveDate] = useState(new Date());
     const dispatch = useDispatch();
     console.log("activeDate: ", activeDate);
@@ -119,7 +119,7 @@ const Calendar = ({navigation}) => {
         return rows;
     }, [activeDate, matrix])
     return (
-        <View style={{flex: 1, backgroundColor: 'white'}}>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
             <View style={{ height: 55, backgroundColor: theme.defaultColor, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10 }}>
                 <TouchableOpacity onPress={() => {
                     navigation.goBack();
@@ -162,9 +162,7 @@ const Calendar = ({navigation}) => {
                 <TouchableOpacity onPress={() => {
                     setMonth(month - 1);
                 }}>
-                    <Text style={{ color: "white" }}>
-                        prev
-                    </Text>
+                    <Ionicons name="arrow-back" style={{ color: "white", fontSize: 22 }} />
                 </TouchableOpacity>
 
                 <Text style={{ color: "white" }}>
@@ -173,9 +171,7 @@ const Calendar = ({navigation}) => {
                 <TouchableOpacity onPress={() => {
                     setMonth(month + 1);
                 }}>
-                    <Text style={{ color: "white" }}>
-                        next
-                    </Text>
+                    <Ionicons name="arrow-forward" style={{ color: "white", fontSize: 22 }} />
                 </TouchableOpacity>
             </View>
             <View style={{ height: 350 }}>

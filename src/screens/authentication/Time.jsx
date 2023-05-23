@@ -12,7 +12,7 @@ const Time = ({ navigation }) => {
     const dispatch = useDispatch();
     const [data, setData] = useState(null);
     const getDate = async () => {
-        const response = await patientApi.getCalendar({ doctorId: selectedDoctor.id, serviceId: selectedService.id, date: selectedCalendar });
+        const response = await patientApi.getCalendar({ doctorId: selectedDoctor?.id, serviceId: selectedService?.id, date: selectedCalendar });
         if (response.success) {
             setData(response.bookings);
         }
@@ -65,7 +65,7 @@ const Time = ({ navigation }) => {
                     <View style={{ flexDirection: "row", marginTop: 20, flexWrap: 'wrap' }}>
                         {
                             data.sort((a, b) => a.sort - b.sort).map((item) => (
-                                <TouchableOpacity key={item.id}
+                                <TouchableOpacity key={item?.id}
                                     onPress={()=>{                                        
                                         dispatch(saveSelectedTime(item));
                                         navigation.navigate("Booking");
