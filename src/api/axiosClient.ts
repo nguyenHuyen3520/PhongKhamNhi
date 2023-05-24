@@ -2,20 +2,20 @@ import axios from 'axios';
 import queryString from 'query-string';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-interface customHeadersType{
+interface customHeadersType {
     Authorization: string
 }
 
 const axiosClient = axios.create({
-    baseURL: 'http://192.168.42.194:4000/api',
+    baseURL: 'http://192.168.41.194:4000/api',
     headers: {
         'content-type': 'application/json',
     },
 });
 axiosClient.interceptors.request.use(async (config) => {
     console.log("config: ", config);
-    const customHeaders:customHeadersType = {Authorization: ''};    
-    const accessToken = await AsyncStorage.getItem('accessToken');  
+    const customHeaders: customHeadersType = { Authorization: '' };
+    const accessToken = await AsyncStorage.getItem('accessToken');
 
     if (accessToken) {
         console.log("accessToken: ", accessToken);
@@ -53,7 +53,7 @@ export default axiosClient;
 // });
 // axiosClient.interceptors.request.use(async (config) => {
 //     const customHeaders = { Authorization: '' };
-//     const accessToken = await AsyncStorage.getItem('accessToken');    
+//     const accessToken = await AsyncStorage.getItem('accessToken');
 //     if (accessToken) {
 //         customHeaders.Authorization = accessToken;
 //     }

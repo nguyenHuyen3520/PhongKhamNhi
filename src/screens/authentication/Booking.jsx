@@ -14,20 +14,21 @@ const Booking = ({ navigation }) => {
     const selectedDoctor = useSelector((state) => state.app.selectedDoctor);
     const selectedCalendar = useSelector((state) => state.app.selectedCalendar);
     const selectedTime = useSelector((state) => state.app.selectedTime);
-    const patients = useSelector((state) => state.app.patients);    
+    const patients = useSelector((state) => state.app.patients);
     const dispatch = useDispatch();
     const handleSubmit = async () => {
-        const response = await patientApi.createSchedule({ doctorId: selectedDoctor.id, serviceId: selectedService.id, date: selectedCalendar, bookingId: selectedTime.id, date: selectedTime.date, time: selectedTime.time, patientId: patients.find(item => item.is_default == 1).id  });
+        const response = await patientApi.createSchedule({ doctorId: selectedDoctor.id, serviceId: selectedService.id, date: selectedCalendar, bookingId: selectedTime.id, date: selectedTime.date, time: selectedTime.time, patientId: patients.find(item => item.is_default == 1).id });
         dispatch(saveBookings(response.bookings));
         dispatch(saveNotifications(response.notifications));
         dispatch(resetBooking());
         Toast.show({
             type: 'success',
-            props: {
-                text2: 'Đặt lịch khám thành công!',
-            },
+            text2: 'Đặt lịch khám thành công!',
         });
-    }    
+        navigation.navigate(
+            "Phiếu khám"
+        )
+    }
     return (
         <View style={{ flex: 1 }}>
             <View style={{ height: 55, backgroundColor: theme.defaultColor, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10 }}>

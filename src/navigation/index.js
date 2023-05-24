@@ -78,13 +78,13 @@ function BottomTabs() {
             <Tab.Screen name="Phiếu khám" component={Bills}
                 options={options}
             />
-            <Tab.Screen name="Thông báo" component={Notification} options={tabBarBadge > 0 ? {
+            {/* <Tab.Screen name="Thông báo" component={Notification} options={tabBarBadge > 0 ? {
                 tabBarBadge: tabBarBadge,
                 headerShown: false,
             } : {
                 headerShown: false,
             }
-            } />
+            } /> */}
             <Tab.Screen name="Tài khoản" component={Account} options={options} />
         </Tab.Navigator>
     );

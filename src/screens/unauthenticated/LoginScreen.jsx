@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
 import { saveProfile, saveToken, savePatients, saveNotifications, saveBills, savePatientDetail, saveServices, saveDoctors, saveBookings, setLoading } from '../../store/appSlice'
 // import { signInWithEmailAndPassword } from "firebase/auth";
+import OneSignal from 'react-native-onesignal';
 import loginApi from '../../api/loginApi';
 import theme from '../../configApp';
 const schema = yup.object().shape({
@@ -15,9 +16,9 @@ const schema = yup.object().shape({
     password: yup.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự').max(32).required('Bạn phải nhập mật khẩu'),
 });
 
-const LoginScreen = (props) => {    
+const LoginScreen = (props) => {
     const { navigation } = props;
-    const {params} = props.route;
+    const { params } = props.route;
     const dispatch = useDispatch();
     const { control, handleSubmit, formState: { errors, reset } } = useForm({
         resolver: yupResolver(schema),
@@ -26,22 +27,23 @@ const LoginScreen = (props) => {
             password: 'Huyen3520@'
         }
     });
-    React.useEffect(()=>{
-        if(params && params?.account){
+    React.useEffect(() => {
+        if (params && params?.account) {
             reset({
                 phone: params.account?.phone ? params.account?.phone : '',
                 password: params.account?.password ? params.account?.password : ''
             })
         }
-    },[params])    
-    const onSubmit = async (data) => {        
-        const response = await loginApi.login(data);        
+    }, [params])
+    const onSubmit = async (data) => {
+        const response = await loginApi.login(data);
         console.log("response: ", response);
         if (response.success) {
             await AsyncStorage.setItem("accessToken", response.accessToken);
             let bookings = [];
             dispatch(saveToken(response.accessToken));
             dispatch(saveProfile(response.info));
+            OneSignal.setExternalUserId(response.info.id);
             const responseInfo = await loginApi.getInfo();
             if (responseInfo) {
                 dispatch(savePatients(responseInfo?.info?.Patients));
