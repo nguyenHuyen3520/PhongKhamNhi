@@ -141,13 +141,19 @@ const Home = ({ navigation }) => {
                   Khám bệnh tại {theme.appName}
                 </Text>
               </View>
-              <View style={{ height: 50, flexDirection: 'row', justifyContent: 'center', alignItems: "center", }}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("CreatePatient");
+                }}
+              >
+                <View style={{ height: 50, flexDirection: 'row', justifyContent: 'center', alignItems: "center", }}>
 
-                <Text style={{ color: "white", marginRight: 5 }}>
-                  Tạo sổ
-                </Text>
-                <MaterialIcons name="library-add" style={{ color: "white", fontSize: 22 }} />
-              </View>
+                  <Text style={{ color: "white", marginRight: 5 }}>
+                    Tạo sổ
+                  </Text>
+                  <MaterialIcons name="library-add" style={{ color: "white", fontSize: 22 }} />
+                </View>
+              </TouchableOpacity>
             </View>
           ) : null
         }
@@ -280,7 +286,7 @@ const styles = StyleSheet.create({
   },
   image: {
     ...StyleSheet.absoluteFillObject,
-    resizeMode: 'cover',
+    // resizeMode: 'contain',
   },
 })
 

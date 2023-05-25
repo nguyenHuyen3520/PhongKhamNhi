@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Dimensions } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import patientApi from '../../api/patientApi';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,9 @@ const TreatmentHistory = ({ navigation }) => {
         console.log("id: ", id)
         const response = await patientApi.getTreatment(id);
         console.log("response: ", response);
-        setData(response.data);
+        if (response.success && response.data?.Supplies?.length > 0) {
+            setData(response.data);
+        }
     }
     useEffect(() => {
         if (patientDetail) {
@@ -57,7 +59,7 @@ const TreatmentHistory = ({ navigation }) => {
                                     Thông tin hồ sơ khám:
                                 </Text>
                                 <View style={{ padding: 10 }}>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', }}>
+                                    <View style={{ flexDirection: 'row', }}>
                                         <Text style={{ fontWeight: "bold", }}>
                                             Tên:
                                         </Text>
@@ -65,7 +67,7 @@ const TreatmentHistory = ({ navigation }) => {
                                             {patientDetail.name}
                                         </Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
                                         <Text style={{ fontWeight: "bold", }}>
                                             Dịch vụ khám:
                                         </Text>
@@ -73,7 +75,7 @@ const TreatmentHistory = ({ navigation }) => {
                                             {data?.Service.service_name}
                                         </Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
                                         <Text style={{ fontWeight: "bold", }}>
                                             Chuẩn đoán:
                                         </Text>
@@ -81,11 +83,11 @@ const TreatmentHistory = ({ navigation }) => {
                                             {data?.symptom}
                                         </Text>
                                     </View>
-                                    <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
+                                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
                                         <Text style={{ fontWeight: "bold", }}>
                                             Điều trị:
                                         </Text>
-                                        <Text style={{ marginLeft: 5 }}>
+                                        <Text style={{ marginLeft: 5, width: Dimensions.get("window").width - 100 }}>
                                             {data?.treatment}
                                         </Text>
                                     </View>

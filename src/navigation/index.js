@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { View, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -23,12 +23,16 @@ import Doctors from '../screens/authentication/Doctors';
 import Services from '../screens/authentication/Services';
 import Calendar from '../screens/authentication/Calendar';
 import Time from '../screens/authentication/Time';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ValidateOtpScreen from '../screens/unauthenticated/ValidateOtpScreen';
 import MyInfoScreen from '../screens/authentication/MyInfo';
 import ChangePassword from '../screens/authentication/ChangePassword';
 import TreatmentHistory from '../screens/authentication/TreatmentHistory';
 import PostDetail from '../screens/authentication/PostDetail';
+import OneSignal from 'react-native-onesignal';
+import { saveNotifications } from '../store/appSlice';
+import BookingDetail from '../screens/authentication/BookingDetail';
+
 
 const Stack = createNativeStackNavigator();
 const options = {
@@ -90,6 +94,32 @@ function BottomTabs() {
     );
 }
 const AppNavigation = () => {
+    const dispatch = useDispatch();
+    useEffect(() => {
+        OneSignal.setAppId("5f576173-d203-4d68-88c2-ece066b602c0");
+        // promptForPushNotificationsWithUserResponse will show the native iOS or Android notification permission prompt.
+        // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 8)
+        OneSignal.promptForPushNotificationsWithUserResponse();
+
+        //Method for handling notifications received while app in foreground
+        OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
+            console.log("OneSignal: notification will show in foreground:", notificationReceivedEvent);
+            let notification = notificationReceivedEvent.getNotification();
+            setTimeout(() => {
+                dispatch(saveNotifications(notification));
+            }, 3000);
+            // Complete with null means don't show a notification.
+            notificationReceivedEvent.complete(notification);
+        });
+
+        //Method for handling notifications opened
+        OneSignal.setNotificationOpenedHandler(notification => {
+            setTimeout(() => {
+                dispatch(saveNotifications(notification));
+            }, 3000);
+
+        });
+    }, [])
     return (
         <Stack.Navigator initialRouteName="Login">
             <Stack.Screen name="Login" component={LoginScreen} options={options} />
@@ -109,7 +139,7 @@ const AppNavigation = () => {
             <Stack.Screen name="ValidateOtpScreen" component={ValidateOtpScreen} options={options} />
             <Stack.Screen name="TreatmentHistory" component={TreatmentHistory} options={options} />
             <Stack.Screen name="PostDetail" component={PostDetail} options={options} />
-
+            <Stack.Screen name="BookingDetail" component={BookingDetail} options={options} />
         </Stack.Navigator>
     )
 }

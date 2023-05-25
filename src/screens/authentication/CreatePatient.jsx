@@ -10,7 +10,7 @@ import Toast from 'react-native-toast-message';
 import patientApi from '../../api/patientApi';
 import { savePatients } from '../../store/appSlice';
 
-const CreatePatient = ({ navigation }) => {    
+const CreatePatient = ({ navigation }) => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false)
     const [date, setDate] = useState(null);
@@ -21,6 +21,7 @@ const CreatePatient = ({ navigation }) => {
     const [male, setMale] = useState(true);
     const [name, setName] = useState(null);
     const [note, setNote] = useState(null);
+    const [address, setAddress] = useState(null);
     const bmi = useMemo(() => {
         if (height && weight) {
             return parseFloat(weight) / (parseFloat(height) / 100 * 2);
@@ -28,7 +29,7 @@ const CreatePatient = ({ navigation }) => {
         return null;
     }, [height, weight]);
     console.log("date: ", date)
-    const handleSubmit = async() => {
+    const handleSubmit = async () => {
         // if (!date || !weight || !height || !name || !phone || !email) {
         //     Toast.show({
         //         type: 'customError',
@@ -46,18 +47,17 @@ const CreatePatient = ({ navigation }) => {
             bmi: bmi,
             gender: male ? 1 : 0,
             note: note,
-            age: moment(date).format('L')
+            age: moment(date).format('L'),
+            address: address
         }
         const response = await patientApi.createPatient(variables);
-        if(response.success){
+        if (response.success) {
             dispatch(savePatients(response.patients));
             Toast.show({
                 type: 'success',
-                props: {
-                    text2: 'Tạo hồ sơ thành công!',
-                },
+                text2: 'Tạo hồ sơ thành công!',
             });
-            navigation.goBack();        
+            navigation.goBack();
         }
     }
 
@@ -215,6 +215,20 @@ const CreatePatient = ({ navigation }) => {
                         // borderTopWidth: 0.5, borderBottomWidth: 0.5, borderColor: "#e0e0e0"
                     }}>
                         <Text>
+                            Địa chỉ:
+                        </Text>
+                        <TextInput
+                            placeholder='Nhập địa chỉ liên hệ'
+                            style={{ borderBottomWidth: 1, borderBottomColor: "#e0e0e0", }}
+                            value={address}
+                            onChangeText={(text) => setAddress(text)}
+                        />
+                    </View>
+                    <View style={{
+                        marginVertical: 5, paddingVertical: 5,
+                        // borderTopWidth: 0.5, borderBottomWidth: 0.5, borderColor: "#e0e0e0"
+                    }}>
+                        <Text>
                             Chiều cao
                         </Text>
                         <TextInput
@@ -251,7 +265,7 @@ const CreatePatient = ({ navigation }) => {
                             style={{ borderBottomWidth: 1, borderBottomColor: "#e0e0e0", paddingVertical: 10 }}
                         >
                             <Text>
-                                {bmi ? bmi : 'Chỉ số BMI'}
+                                {bmi ? parseInt(bmi).toFixed(1) : 'Chỉ số BMI'}
                             </Text>
                         </View>
                     </View>

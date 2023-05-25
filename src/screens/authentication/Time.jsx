@@ -26,9 +26,9 @@ const Time = ({ navigation }) => {
                 <ActivityIndicator size="large" />
             </View>
         )
-    } else {        
+    } else {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, backgroundColor: 'white' }}>
                 <View style={{ height: 55, backgroundColor: theme.defaultColor, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: 10 }}>
                     <TouchableOpacity onPress={() => {
                         navigation.goBack();
@@ -50,13 +50,13 @@ const Time = ({ navigation }) => {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: "center", }}>
                         <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 10, marginRight: 30 }}>
-                            <View style={{ height: 30, width: 30, borderColor: theme.defaultColor, marginRight: 10, borderRadius: 5, borderWidth: 1 }} />
+                            <View style={{ height: 30, width: 30, borderColor: theme.defaultColor, marginRight: 10, borderRadius: 8, borderWidth: 1 }} />
                             <Text>
                                 Còn trống
                             </Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: "center", marginTop: 10 }}>
-                            <View style={{ height: 30, width: 30, marginRight: 10, borderRadius: 5, backgroundColor: "#e0e0e0" }} />
+                            <View style={{ height: 30, width: 30, marginRight: 10, borderRadius: 8, backgroundColor: "#e0e0e0" }} />
                             <Text>
                                 Kín khung giờ
                             </Text>
@@ -66,12 +66,12 @@ const Time = ({ navigation }) => {
                         {
                             data.sort((a, b) => a.sort - b.sort).map((item) => (
                                 <TouchableOpacity key={item?.id}
-                                    onPress={()=>{                                        
+                                    onPress={() => {
                                         dispatch(saveSelectedTime(item));
                                         navigation.navigate("Booking");
                                     }}
                                 >
-                                    <View style={{padding: 10, paddingHorizontal: 20,  backgroundColor: item.status == 0 ? "white" : "#e0e0e0", borderRadius: 5, borderWidth: item.status == 0 ? 1 : 0, margin: 10, borderColor: item.status == 0 ? theme.defaultColor : "white"}}>
+                                    <View style={{ padding: 10, paddingHorizontal: 20, backgroundColor: item.status == 0 ? "white" : "#e0e0e0", borderRadius: 8, borderWidth: item.status == 0 ? 1 : 0, margin: 10, borderColor: item.status == 0 ? theme.defaultColor : "white" }}>
                                         <Text>
                                             {item.time}
                                         </Text>

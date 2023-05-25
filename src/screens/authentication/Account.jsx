@@ -27,7 +27,7 @@ const Account = ({ navigation }) => {
         <View />
       </View>
       <View style={{ justifyContent: 'space-between' }}>
-        <View style={{ height: 200, backgroundColor: theme.defaultColor, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ height: 180, backgroundColor: theme.defaultColor, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={{ uri: profile?.image }}
             style={{ height: 70, width: 70 }}
@@ -56,7 +56,7 @@ const Account = ({ navigation }) => {
                 navigation.navigate("MyInfoScreen");
               }}
             >
-              <View style={{ height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
+              <View style={{ height: 60, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Feather name="user" style={{ fontSize: 22 }} />
                   <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 16 }}>
@@ -71,7 +71,7 @@ const Account = ({ navigation }) => {
                 navigation.navigate("ChangePassword");
               }}
             >
-              <View style={{ height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
+              <View style={{ height: 60, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Ionicons name="md-key-outline" style={{ fontSize: 22 }} />
                   <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 16 }}>
@@ -88,7 +88,7 @@ const Account = ({ navigation }) => {
                 Linking.openURL(phoneUrl);
               }}
             >
-              <View style={{ height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
+              <View style={{ height: 60, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <MaterialIcons name="support-agent" style={{ fontSize: 22 }} />
                   <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 16 }}>
@@ -105,7 +105,7 @@ const Account = ({ navigation }) => {
                 Linking.openURL(mailtoUrl);
               }}
             >
-              <View style={{ height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
+              <View style={{ height: 60, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <MaterialIcons name="error-outline" style={{ fontSize: 22 }} />
                   <Text style={{ fontWeight: 'bold', marginLeft: 10, fontSize: 16 }}>
@@ -121,7 +121,7 @@ const Account = ({ navigation }) => {
                 navigation.navigate("Login");
               }}
             >
-              <View style={{ height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
+              <View style={{ height: 60, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomWidth: 1, borderBottomColor: "#e0e0e0" }}>
                 <Text style={{ color: "red" }}>
                   Đăng xuất
                 </Text>

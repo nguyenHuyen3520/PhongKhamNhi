@@ -8,6 +8,7 @@ import patientApi from '../../api/patientApi';
 import { useDispatch } from 'react-redux';
 import { savePatientDetail, savePatients, setLoading } from '../../store/appSlice';
 import ButtonScale from '../Button/ButtonScale';
+import Toast from 'react-native-toast-message';
 
 const PatientItem = (props) => {
     const navigation = useNavigation();
@@ -17,6 +18,10 @@ const PatientItem = (props) => {
         dispatch(setLoading(true));
         const response = await patientApi.changeDefault({ id: data.id });
         if (response.success) {
+            Toast.show({
+                type: 'success',
+                text1: "Thay đổi hồ sơ mặc định thành công"
+            });
             dispatch(savePatients(response?.patients));
             dispatch(savePatientDetail(response?.patientDetail));
             dispatch(setLoading(false));

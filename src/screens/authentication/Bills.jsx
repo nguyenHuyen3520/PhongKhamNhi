@@ -1,9 +1,11 @@
-import { View, Text, TouchableOpacity, ScrollView, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, FlatList, RefreshControl } from 'react-native'
 import React, { useMemo, useState } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import theme from '@theme';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import { saveBookings } from '../../store/appSlice';
+import loginApi from '../../api/loginApi';
 const listData = [
   {
     label: 'Chờ xác nhận',
@@ -23,28 +25,47 @@ const listData = [
   }
 ]
 const Bills = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [status, setStatus] = useState(1);
   const bookings = useSelector((state) => state.app.bookings);
+  const [refreshing, setRefreshing] = React.useState(false);
+  const getBookings = async () => {
+    const response = await loginApi.getBookings();
+    let data = [];
+    if (response.success) {
+      response?.info?.Patients.map((item) => {
+        if (item?.Bookings?.length > 0) {
+          data.push(...item.Bookings);
+        }
+      })
+      dispatch(saveBookings(data));
+      setRefreshing(false);
+    }
+  }
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    getBookings();
+  }, []);
   const renderItem = ({ item }) => {
-    console.log("item: ", item)
     return (
       <TouchableOpacity
         style={{
-          shadowColor: "#000",
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 3.84,
+          // shadowColor: "#000",
+          // shadowOffset: {
+          //   width: 0,
+          //   height: 2,
+          // },
+          // shadowOpacity: 0.25,
+          // shadowRadius: 3.84,
 
-          elevation: 5,
+          // elevation: 5,
+
         }}
         onPress={() => {
-
+          navigation.navigate("BookingDetail", { booking_id: item.id })
         }} >
         <View style={{
-          borderWidth: 1, padding: 20, borderRadius: 15, marginBottom: 20,
+          padding: 20, borderRadius: 15, marginBottom: 20, backgroundColor: 'white', borderWidth: 1, borderColor: '#e0e0e0'
         }}>
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ fontWeight: 'bold', marginRight: 10 }}>
@@ -83,7 +104,7 @@ const Bills = ({ navigation }) => {
               Trạng thái:
             </Text>
             <Text>
-              {item.status == 1 ? "Đang chờ xác nhân" : item.status == 2 ? "Chưa khám" : item.status == 3 ? "Chưa thanh toán" : "Đã thanh toán"}
+              {item.status == 1 ? "Đang chờ xác nhận" : item.status == 2 ? "Chờ khám" : item.status == 3 ? "Chờ thanh toán" : "Đã thanh toán"}
             </Text>
           </View>
         </View>
@@ -111,7 +132,7 @@ const Bills = ({ navigation }) => {
         <View />
       </View>
       <View style={{ height: 70 }}>
-        <ScrollView style={{ padding: 10, height: 70 }} horizontal={true} showsHorizontalScrollIndicator={false}>
+        <ScrollView style={{ padding: 10, height: 50 }} horizontal={true} showsHorizontalScrollIndicator={false}>
           {
             listData.map((item, index) => (
               <TouchableOpacity
@@ -120,7 +141,7 @@ const Bills = ({ navigation }) => {
                   setStatus(item.value)
                 }}
               >
-                <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', backgroundColor: status == item.value ? theme.defaultColor : "#e0e0e0", paddingHorizontal: 15, borderRadius: 90, marginRight: 10 }}>
+                <View style={{ height: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: status == item.value ? theme.defaultColor : "#e0e0e0", paddingHorizontal: 15, borderRadius: 90, marginRight: 10 }}>
                   <Text style={{ color: status == item.value ? "white" : "black" }}>
                     {item.label}
                   </Text>
@@ -137,23 +158,10 @@ const Bills = ({ navigation }) => {
             renderItem={renderItem}
             keyExtractor={item => item.id}
             style={{ padding: 10 }}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
           />
-          // data.map((item) => (
-          //   <TouchableOpacity onPress={() => {
-
-          //   }}
-          //     key={item.id}
-          //   >
-          //     <View style={{ borderWidth: 1 }}>
-          //       <Text style={{ fontWeight: 'bold' }}>
-          //         Ngày khám: {moment.unix(item.date).format("DD/MM/YYYY")}
-          //       </Text>
-          //       <Text style={{ fontWeight: 'bold', marginVariation: 5 }}>
-          //         Giờ khám: {item.time}
-          //       </Text>
-          //     </View>
-          //   </TouchableOpacity>
-          // ))
         ) : (
           <View style={{ height: '80%', justifyContent: 'center', alignItems: 'center' }}>
             <Text>

@@ -17,9 +17,15 @@ const Booking = ({ navigation }) => {
     const patients = useSelector((state) => state.app.patients);
     const dispatch = useDispatch();
     const handleSubmit = async () => {
+        let bookings = [];
         const response = await patientApi.createSchedule({ doctorId: selectedDoctor.id, serviceId: selectedService.id, date: selectedCalendar, bookingId: selectedTime.id, date: selectedTime.date, time: selectedTime.time, patientId: patients.find(item => item.is_default == 1).id });
-        dispatch(saveBookings(response.bookings));
-        dispatch(saveNotifications(response.notifications));
+        response?.info?.Patients.map((item) => {
+            if (item?.Bookings?.length > 0) {
+                bookings.push(...item.Bookings);
+            }
+        })
+        dispatch(saveBookings(bookings));
+
         dispatch(resetBooking());
         Toast.show({
             type: 'success',

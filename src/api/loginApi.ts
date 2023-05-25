@@ -49,11 +49,19 @@ const loginApi = {
     },
     updateUser: (data: any) => {
         const url = '/updateUser';
-        return axiosClient.post(url,data);
+        return axiosClient.post(url, data);
     },
     changePassword: (data: any) => {
         const url = '/changePassword';
-        return axiosClient.post(url,data);
+        return axiosClient.post(url, data);
+    },
+    getBookings: () => {
+        const url = '/getBookings';
+        return axiosClient.get(url);
+    },
+    getBookingDetail: (id: string) => {
+        const url = '/getBooking?booking_id=' + id;
+        return axiosClient.get(url);
     }
 }
 

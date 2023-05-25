@@ -31,14 +31,14 @@ const Item = (props) => {
                                 </Text> {data?.Booking_Supplies?.quantity} {data?.unit}
                             </Text>
                         </View>
-                        <View style={{marginVertical: 5}}>
+                        <View style={{ marginVertical: 5 }}>
                             <Text>
                                 <Text style={{ fontWeight: "bold", }}>
                                     Gía tiền:
-                                </Text> {formatCurrency({ amount: Number(data?.price), code: "VND" })} / {data?.unit}
+                                </Text> {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data.price)} / {data?.unit}
                             </Text>
                         </View>
-                        <View style={{marginVertical: 5}}>
+                        <View style={{ marginVertical: 5 }}>
                             <Text>
                                 <Text style={{ fontWeight: "bold", }}>
                                     Cách dùng:
